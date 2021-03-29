@@ -1,0 +1,28 @@
+body {
+    background-color: powderblue;
+  }
+h1 { font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+     font-size: 4em;
+     color: red;
+     margin: 30px;
+    }
+p { text-align: center;
+}
+table { width: 10%;
+        height: 10px;
+        margin: auto;
+}
+th { text-align: center;
+     font-size: 15px;
+     border: 2px solid black;
+     padding: 10px;
+     background-color: rgb(76, 160, 76) ;
+}
+th:hover { background-color: white;
+}
+.submit { background-color: red;
+          color: white;
+}
+.reset { background-color: blue;
+         color: white;
+}
