@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div class="welcome">Welcome to INTERNET-PROGRAMMING MOVIE SITE</div>
+    <div class="link">
+        <a href="login.html">로그인</a> |
+        <a href="signup.html">회원가입</a>
+    </div>
+    <form method="post" action="#" class="signup">
+        <label><span>이름 : </span><input name="name" type="text" autocomplete="on" autofocus/></label><br/>
+        <label><span>생일 : </span><input name="birthdate" type="date"/></label><br/>
+        <label><span>성별 : </span><input name="gender" type="radio" value="male"/>남성<input name="gender" type="radio" value="female"/>여성</label><br/>
+        <label><span>학년 : </span><input name="grade" type="number" value="1" step="1"/></label><br/>
+        <label><span>아이디 : </span><input name="id" type="text" required/></label><br/>
+        <label><span>비밀번호 : </span><input name="pass" type="password" required/></label><br/>
+        <label><span>이메일 : </span><input name="email" type="email" placeholder="internetProg@yonsei.ac.kr"/></label><br/>
+        <label><span>보안 질문 : </span> 
+            <select name="security">
+                <option value="0">질문을 선택하세요.</option>
+                <option value="1">당신의 학번은?</option>
+                <option value="2">당신의 학과는?</option>
+            </select>
+        </label><br/>
+        <label><span>답변 : </span><input name="answer" type="text"/></label><br/>
+        <div class="submitDiv"><input type="submit" value="Signup" class="submit"><input type="reset" value="Cancel" class="reset"></div>
+    </form>
+</body>
+</html>

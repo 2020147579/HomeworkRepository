@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+.welcome {
+    font-family: "Winky Rough", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.link {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    border: 2px solid black;
+    width: 300px;
+    margin: auto;
+    padding: 10px;
+}
+
+.signup {
+    height: 350px;
+}
+
+.login {
+    height: 150px;
+}
+
+form label {
+    display: inline-block;
+    margin:  5px 0;
+}
+
+form label span {
+    display: inline-block;
+    width: 100px;
+}
+
+input:not([type="radio"], [type="submit"], [type="reset"]), select {
+    width: 150px;
+}
+
+.submit {
+    background-color: lightgreen;
+    border: 1px lightgreen;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 70px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.reset {
+    background-color: red;
+    color: white;
+    border: 1px red;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 70px;
+    height: 24px;
+}
+
+.submitDiv {
+    margin-top: 15px;
+}
