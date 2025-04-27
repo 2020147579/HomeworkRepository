@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    width: 100%;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+.welcome {
+    font-family: "Winky Rough", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-wrapper {
+    overflow: hidden;
+}
+
+.header {
+    position: relative;
+    left: 100%;
+    animation-name: headerAni;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes headerAni {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+.link {
+    width: 30%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.link a {
+    text-decoration: none;
+    color: black;
+}
+
+.link .now {
+    border-top: 2px red solid;
+    border-bottom: 2px red solid;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.movies {
+    display: flex;
+}
+
+@media screen and (max-width: 480px) {
+    .link {
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    .movie-text {
+        text-align: center;
+    }
+
+    .movies {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie-card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .abouts h3 {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {
+    .link {
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    .movie-text {
+        text-align: center;
+    }
+    
+    .movies {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .movie-card {
+        width: 45%;
+        margin-bottom: 20px;
+    }
+
+    .abouts h3 {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 801px) {
+    .link {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .movies {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .movie-card {
+        width: 23%;
+        margin-bottom: 20px;
+    }
+
+    .about {
+        column-count: 2;
+        column-gap: 30px;
+        column-rule: 1px outset black;
+    }
+}
+
+
+.movie-card {
+    aspect-ratio: 1/1;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.movie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    margin-top: 10px;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    transition: transform 2s;
+}
+
+.movie img {
+    width: 100%;
+    height: 100%;
+}
+
+.movie:hover{
+    transform: scale(1.2);
+}
+
+.title {
+    position: absolute;
+    color: white;
+    padding: 5px 10px;
+    opacity: 0;
+}
+
+.movie:hover .title {
+    opacity: 1;
+}
+
+form {
+    border: 2px solid black;
+    width: 300px;
+    margin: auto;
+    padding: 10px;
+}
+
+.signup {
+    height: 350px;
+}
+
+.login {
+    height: 150px;
+}
+
+form label {
+    display: inline-block;
+    margin:  5px 0;
+}
+
+form label span {
+    display: inline-block;
+    width: 100px;
+}
+
+input:not([type="radio"], [type="submit"], [type="reset"]), select {
+    width: 150px;
+}
+
+.submit {
+    background-color: lightgreen;
+    border: 1px lightgreen;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 70px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.reset {
+    background-color: red;
+    color: white;
+    border: 1px red;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 70px;
+    height: 24px;
+}
+
+.submitDiv {
+    margin-top: 15px;
+}
