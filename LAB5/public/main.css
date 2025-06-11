@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    width: 100%;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+.welcome {
+    font-family: "Winky Rough", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-wrapper {
+    overflow: hidden;
+}
+
+.header {
+    position: relative;
+    left: 100%;
+    animation-name: headerAni;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes headerAni {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+.link {
+    width: 30%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.link a {
+    text-decoration: none;
+    color: black;
+}
+
+.link .now {
+    border-top: 2px red solid;
+    border-bottom: 2px red solid;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0;
+}
+  
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.sort-radio {
+    background-color: lightgray;
+    padding: 15px 20px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    margin-right: 20px;
+    height: 170px;
+    width: 170px;
+}
+
+.sort-radio h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.sort-radio label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#searchInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 80%;
+}
+
+#searchButton {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.movies {
+    width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 15px;
+}
+
+.movie-card {
+    width: 45%;
+    height: 450px;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.image-container {
+    width: 95%;
+    height: 350px;
+    margin: auto;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  
+.movie-info {
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px 10px 10px;
+    font-size: 14px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+
+@media screen and (max-width: 480px) {
+    .link {
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    .abouts h3 {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {
+    .link {
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    .abouts h3 {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 801px) {
+    .link {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .about {
+        column-count: 2;
+        column-gap: 30px;
+        column-rule: 1px outset black;
+    }
+}
+
+form {
+    border: 2px solid black;
+    width: 300px;
+    margin: auto;
+    padding: 10px;
+}
+
+.signup {
+    height: 350px;
+}
+
+.login {
+    height: 150px;
+}
+
+form label {
+    display: inline-block;
+    margin:  5px 0;
+}
+
+form label span {
+    display: inline-block;
+    width: 100px;
+}
+
+input:not([type="radio"], [type="submit"], [type="reset"]), select {
+    width: 150px;
+}
+
+.submit {
+    background-color: lightgreen;
+    border: 1px lightgreen;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 70px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.reset {
+    background-color: red;
+    color: white;
+    border: 1px red;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 70px;
+    height: 24px;
+}
+
+.submitDiv {
+    margin-top: 15px;
+}
+
+.movie-detail {
+  display: flex;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.movie-detail img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.movie-info-text {
+  flex-grow: 1;
+}
+
+.movie-info-text p {
+  margin: 5px 0;
+}
+
+.movie-comments {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.movie-comments h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.comment-item {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.movie-comments hr {
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#newComment {
+  flex-grow: 1;
+  padding: 8px;
+}
+
+#submitComment {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

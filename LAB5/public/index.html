@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href="main.css">
+    <title>MOVIE</title>
+</head>
+
+<body>
+  <div class="header-wrapper">
+    <h1 class="header">인프밍 영화정보 사이트입니다.</h1>
+  </div>
+  <div class="link">
+    <a href="index.html" class="now">메인페이지</a>
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  </div>
+  <hr>
+  <div class="search">
+    <input type="text" id="searchInput" placeholder="키워드를 입력하세요" />
+    <button id="searchButton">Filter results</button>
+  </div>
+  <h2 class="movie-text">Movies</h2>
+  <hr>
+  <div class="content-wrapper">
+    <div class="sort-radio">
+      <h4>정렬 기준</h4>
+      <label><input type="radio" name="sort" value="grade-desc" /> 평점 내림차순</label>
+      <label><input type="radio" name="sort" value="grade-asc" /> 평점 오름차순</label>
+      <label><input type="radio" name="sort" value="date-desc" /> 개봉일 내림차순</label>
+      <label><input type="radio" name="sort" value="date-asc" /> 개봉일 오름차순</label>
+    </div>
+    <div class="movies"></div>
+  </div>
+  <div class="abouts">
+    <h3>About</h3>
+    <hr>
+    <div class="about">
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+      여기는 인프밍 영화정보 사이트!
+    </div>
+  </div>
+  <script>
+    let allMovies = [];
+    let filteredMovies = [];
+    let currentIndex = 0;
+    const SIZE = 4;
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      applyFilter();
+    
+      document.getElementById("searchButton").addEventListener("click", () => {
+        applyFilter();
+      });
+    
+      document.querySelectorAll("input[name=sort]").forEach(radio => {
+        radio.addEventListener("change", () => {
+          applyFilter();
+        });
+      });
+    
+      window.addEventListener("scroll", handleScroll);
+    });
+    
+    function applyFilter() {
+      const searchInput = document.querySelector("#searchInput");
+      const selectedSort = document.querySelector("input[name='sort']:checked");
+
+      const search = searchInput ? searchInput.value : "";
+      const sort = selectedSort ? selectedSort.value : "";
+
+      let url = "/movies";
+      const params = [];
+
+      if (sort) params.push(`sort=${sort}`);
+      if (search) params.push(`search=${encodeURIComponent(search)}`);
+      if (params.length > 0) url += `?${params.join("&")}`;
+
+      const req = new XMLHttpRequest();
+      req.open("GET", url);
+      req.onload = function () {
+        if (req.status === 200) {
+          allMovies = JSON.parse(req.responseText);
+          filteredMovies = allMovies;
+          currentIndex = 0;
+          document.querySelector(".movies").innerHTML = "";
+          loadNext();
+        }
+      };
+      req.send();
+    }
+    
+    function loadNext() {
+      const container = document.querySelector(".movies");
+      const end = Math.min(currentIndex + SIZE, filteredMovies.length);
+      const batch = filteredMovies.slice(currentIndex, end);
+    
+      batch.forEach(movie => {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+    
+        card.innerHTML = `
+          <div class="image-container">
+            <img src="/image/${movie.movie_image}" alt="${movie.movie_title}" class="image" />
+            <div class="overlay">
+              <p class="description">줄거리 : <br>${movie.movie_overview}</p>
+            </div>
+          </div>
+          <div class="movie-info">
+            <h3 class="title">${movie.movie_title}</h3>
+            <div class="date">📅 ${movie.movie_release_date}</div>
+            <div class="grade">⭐ ${movie.movie_rate}/10</div>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          location.href = `/movie.html?id=${movie.movie_id}`;
+        });
+    
+        const poster = card.querySelector(".image-container");
+        const overlay = card.querySelector(".overlay");
+    
+        poster.addEventListener("mouseenter", () => {
+          overlay.style.opacity = "1";
+        });
+    
+        poster.addEventListener("mouseleave", () => {
+          overlay.style.opacity = "0";
+        });
+    
+        container.appendChild(card);
+      });
+    
+      currentIndex = end;
+    }
+    
+    function handleScroll() {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const bodyHeight = document.body.offsetHeight;
+    
+      if (scrollTop + windowHeight >= bodyHeight - 100) {
+        loadNext();
+      }
+    }
+    </script>
+    
+    
+    
+    
+</body>
+
+</html>

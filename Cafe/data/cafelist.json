@@ -1,0 +1,17 @@
+{
+    "Cafe A" : {
+        "name": "Cafe A",
+        "max_seats": 100,
+        "data": "./transaction_data_A.xlsx",
+        "brand": true,
+        "multifloor": 3
+    },
+
+    "Cafe B" : {
+        "name": "Cafe B",
+        "max_seats": 80,
+        "data": "./transaction_data_B.xlsx",
+        "brand": false,
+        "multifloor": 1
+    }
+}

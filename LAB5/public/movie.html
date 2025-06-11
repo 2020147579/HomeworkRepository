@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css" />
+  <title>Detail</title>
+</head>
+<body>
+  <div class="header-wrapper">
+    <h1 class="header">인프밍 영화정보 사이트입니다.</h1>
+  </div>
+  <div class="link">
+    <a href="index.html" class="now">메인페이지</a>
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  </div>
+  <hr />
+
+  <div class="container" id="detailContainer"></div>
+
+  <script>
+    function loadComments(movieId) {
+      const req = new XMLHttpRequest();
+      req.open("GET", "/comment.json");
+      req.onload = function () {
+        if (req.status === 200) {
+          const all = JSON.parse(req.responseText);
+          const match = all.find(item => item.movie_id == movieId);
+          const list = document.getElementById("commentList");
+          list.innerHTML = "";
+
+          if (match && match.comments.length > 0) {
+            match.comments.forEach(text => {
+              const div = document.createElement("div");
+              div.className = "comment-item";
+              div.textContent = text;
+              list.appendChild(div);
+              const hr = document.createElement("hr");
+              list.appendChild(hr);
+            });
+          }
+        }
+      };
+      req.send();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const movieId = params.get("id");
+      if (!movieId) return;
+
+      const req = new XMLHttpRequest();
+      req.open("GET", `/movies/${movieId}`);
+      req.onload = function () {
+        if (req.status === 200) {
+          const movie = JSON.parse(req.responseText);
+          const container = document.getElementById("detailContainer");
+
+          container.innerHTML = `
+            <div class="movie-detail">
+              <img src="/image/${movie.movie_image}" alt="${movie.movie_title}" />
+              <div class="movie-info-text">
+                <p>영화 id: ${movie.movie_id}</p>
+                <h2>🎬 영화 제목 ${movie.movie_title}</h2>
+                <p>📅 개봉일: ${movie.movie_release_date}</p>
+                <p>⭐ 평점: ${movie.movie_rate}</p>
+                <p>📁 줄거리: ${movie.movie_overview}</p>
+              </div>
+            </div>
+
+            <div class="movie-comments">
+              <h3>✏️ 영화 후기</h3>
+              <div id="commentList"></div>
+              <div class="comment-form">
+                <input type="text" id="newComment" placeholder="후기를 작성하세요" />
+                <button id="submitComment">등록하기!</button>
+              </div>
+            </div>
+          `;
+
+          loadComments(movie.movie_id);
+
+          document.getElementById("submitComment").addEventListener("click", () => {
+            const input = document.getElementById("newComment");
+            const text = input.value.trim();
+            if (!text) return;
+
+            const postReq = new XMLHttpRequest();
+            postReq.open("POST", "/comments");
+            postReq.setRequestHeader("Content-Type", "application/json");
+            postReq.onload = function () {
+              if (postReq.status === 200) {
+                input.value = "";
+                loadComments(movie.movie_id);
+              }
+            };
+            postReq.send(JSON.stringify({ movie_id: movie.movie_id, comment: text }));
+          });
+        }
+      };
+      req.send();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>카페 혼잡도 확인</title>
+</head>
+<body>
+    <h1>카페 혼잡도 조회</h1>
+    <label>카페 이름: <input id="cafeName" value="Cafe A"></label><br>
+    <label>시각(YYYY-MM-DDTHH:mm): <input id="datetime" value="2025-05-22T10:15"></label><br>
+    <button onclick="fetchCongestion()">조회</button>
+    <pre id="output"></pre>
+    
+    <label>유저 ID: <input id="user" type="text" value="test"></label><br>
+    <label>비밀번호: <input id="pwd" type="password" value="1111"></label><br>
+    <button onclick="fetchUser()">유저 확인</button>
+    <pre id="brandOutput"></pre>
+
+    <label><input type="radio" name="sort" value="mix" checked> 혼합순</label>
+    <label><input type="radio" name="sort" value="congestion"> 혼잡도순</label>
+    <label><input type="radio" name="sort" value="distance"> 거리순</label>
+    <label><input type="radio" name="sort" value="brand"> 브랜드순</label>
+    <p></p>
+    <button onclick="fetchRecommend()">추천</button>
+    <pre id="recommendOutput"></pre>
+
+    <script>
+        let cafeData = [];
+        let brand;
+
+        async function fetchCongestion() {
+            const cafeName = document.getElementById("cafeName").value;
+            const datetime = document.getElementById("datetime").value;
+
+            const res = await fetch(`/congestion?cafeName=${encodeURIComponent(cafeName)}&datetime=${encodeURIComponent(datetime)}`);
+            const data = await res.json();
+
+            // 현재는 distance와 congestionRate를 랜덤으로 추가
+            data.distance = Math.floor(Math.random() * 81); // 0~80 정수
+            data.congestionRate = parseFloat((Math.random()).toFixed(1)); // 0~1 사이 소수점 1자리
+            cafeData.push(data);
+
+            document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function fetchUser() {
+            const id = document.getElementById("user").value;
+            const pwd = document.getElementById("pwd").value;
+            const res = await fetch(`/getBrand?id=${encodeURIComponent(id)}&pwd=${encodeURIComponent(pwd)}`);
+            const data = await res.json();
+
+            brand = data;
+
+            document.getElementById("brandOutput").textContent = JSON.stringify(data);
+        }
+
+        async function fetchRecommend() {
+            // 선택된 정렬 기준
+            const sort = document.querySelector('input[name="sort"]:checked').value;
+
+            // 서버에 cafeData와 brand를 JSON으로 전송 (POST 요청)
+            const res = await fetch('/recommend', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                cafeData,
+                brand,
+                sort
+                })
+            });
+
+            const data = await res.json();
+
+            document.getElementById("recommendOutput").textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
